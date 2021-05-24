@@ -19,6 +19,8 @@ header-includes:
   - \definecolor{h}{HTML}{FFFFFF}
 ---
 
+\pagenumbering{gobble}
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(dplyr)

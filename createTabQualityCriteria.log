@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.11.19)  24 MAY 2021 13:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.11.19)  24 MAY 2021 14:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -898,24 +898,24 @@ your preamble.
 [1
 
 {/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 105.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 105.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 107.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 107.
 (./createTabQualityCriteria.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 105.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 105.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 107.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 107.
  ) 
 Here is how much of TeX's memory you used:
- 32556 strings out of 480608
- 736799 string characters out of 5903629
+ 32557 strings out of 480608
+ 736809 string characters out of 5903629
  1164894 words of memory out of 5000000
- 47931 multiletter control sequences out of 15000+600000
+ 47932 multiletter control sequences out of 15000+600000
  540017 words of font info for 30 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  68i,5n,98p,823b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}</usr/local/
 texlive/2020/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/202
 0/texmf-dist/fonts/type1/public/lm/lmri10.pfb>
-Output written on createTabQualityCriteria.pdf (1 page, 46675 bytes).
+Output written on createTabQualityCriteria.pdf (1 page, 46679 bytes).
 PDF statistics:
  26 PDF objects out of 1000 (max. 8388607)
  20 compressed objects within 1 object stream
