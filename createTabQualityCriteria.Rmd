@@ -1,0 +1,41 @@
+---
+output:
+  pdf_document: default
+header-includes: 
+  - \usepackage{pgfplots}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(knitr)
+```
+
+```{r import, include=FALSE}
+df = read.csv2("https://osf.io/dmzg4/download")
+df = select(df, Funder, Research, Quality, E.I, Criterion)
+```
+
+```{r quality, echo=FALSE, warning=FALSE}
+dimension = c("*Credible*", "Rigorous", "Consistent", "Coherent", "Transparent", "*Contributory*", "Original", "Relevant", "Generalizable", "*Communicable*", "Consumable", "Accessible", "Searchable","*Conforming*", "Aligned with regulations", "Ethical", "Sustainable")
+funder = unique(df$Funder[df$Funder != ""])
+df.quality = as.data.frame(matrix(NA, ncol = length(funder), nrow = length(dimension)))
+names(df.quality) = funder
+df.quality$Dimension = dimension
+df.quality$i = 1:length(dimension)
+for (i in 1:length(dimension)){
+  for (j in 1:length(funder)){
+    EI = df %>% filter (Quality == dimension[i] & Funder == funder[j]) %>% select("E.I")
+    df.quality[i,j] = ifelse(nrow(EI)==0, NA, EI[1])
+    }
+}
+df.quality = data.frame(Area = df.quality$Dimension, select(df.quality, -Dimension))
+n = df %>% 
+  filter(Quality != "") %>%
+  group_by(Quality) %>% 
+  distinct(Funder) %>% 
+  summarise(n = n())
+df.quality = merge(df.quality, n, by.x = "Area", by.y = "Quality", all.x = T) %>% arrange(i) %>% select(-i)
+options(knitr.kable.NA = '')
+kable(df.quality)
+```

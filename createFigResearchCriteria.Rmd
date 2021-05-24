@@ -1,0 +1,103 @@
+---
+output:
+  pdf_document: default
+header-includes: 
+  - \usepackage{tikz}
+  - \usepackage{pgfplots}
+  - \usetikzlibrary{positioning}
+  - \usepackage{xcolor}
+  - \definecolor{h10}{HTML}{FF0000}
+  - \definecolor{h9}{HTML}{FF2400}
+  - \definecolor{h8}{HTML}{FF4900}
+  - \definecolor{h7}{HTML}{FF6D00}
+  - \definecolor{h6}{HTML}{FF9200}
+  - \definecolor{h5}{HTML}{FFB600}
+  - \definecolor{h4}{HTML}{FFDB00}
+  - \definecolor{h3}{HTML}{FFFF00}
+  - \definecolor{h2}{HTML}{FFFF40}
+  - \definecolor{h1}{HTML}{FFFFBF}
+  - \definecolor{h}{HTML}{FFFFFF}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(DT)
+library(knitr)
+```
+
+```{r import, include=FALSE}
+df = read.csv2("https://osf.io/dmzg4/download")
+df = select(df, Funder, Research, Quality, E.I, Criterion)
+```
+
+```{r research, echo=FALSE}
+df.research = df %>% 
+  filter(Research != "") %>%
+  group_by(Research) %>% 
+  distinct(Funder) %>% 
+  summarise(n = n())
+```
+
+\begin{tikzpicture}[
+mynode/.style={rectangle, draw, text width=.75in, rounded corners, align=center},
+lnode/.style={rectangle, draw, rounded corners},
+]
+%Nodes
+\node[mynode, fill = `r paste("h",df.research$n[df.research$Research=="Relationship"], sep = "")`] (Relationship) {Relationship};
+\node[mynode, fill = `r paste("h",df.research$n[df.research$Research=="Conscious Action"], sep = "")`] (Active) [below=of Relationship]	{Conscious Action};
+\node[mynode, fill = `r paste("h",df.research$n[df.research$Research=="Actor"], sep = "")`] (Actor) [right=of Active]	{Actor};
+\node[mynode, fill = `r paste("h",df.research$n[df.research$Research==""], sep = "")`] (Person) [right=of Relationship] {Person};
+\node[] (R1) [below=of Active] { };
+\node[] (R2) [below=of R1] { };
+\node[mynode, fill = `r paste("h",df.research$n[df.research$Research=="Research"], sep = "")`] (Research) [below=of R2] {Research};
+\node[mynode, fill = `r paste("h",df.research$n[df.research$Research=="Question at Hand"], sep = "")`] (Question) [left=of Research] {Question at Hand};
+\node[mynode, fill = `r paste("h",df.research$n[df.research$Research=="New Knowledge"], sep = "")`] (New) [right=of Research] {New Knowledge};
+\node[mynode, fill = `r paste("h",df.research$n[df.research$Research=="Context"], sep = "")`] (Context) [below=of New] {Context};
+\node[mynode, fill = `r paste("h",df.research$n[df.research$Research=="Described Procedure"], sep = "")`] (Described) [right=of R1] {Described Procedure};
+\node[mynode, fill = `r paste("h",df.research$n[df.research$Research=="Transparency"], sep = "")`] (Transparency) [below=of Context] {Transparency};
+\node[mynode, fill = `r paste("h",df.research$n[df.research$Research=="Rules for Description"], sep = "")`] (Rules) [right=of Described] {Rules for Description};
+\node[mynode, fill = `r paste("h",df.research$n[df.research$Research=="Provable"], sep = "")`] (Provable) [right=of New] {Provable};
+\node[mynode, fill = `r paste("h",df.research$n[df.research$Research=="Beneficial"], sep = "")`] (Beneficial) [above=of Provable] {Beneficial};
+\node[mynode, fill = `r paste("h",df.research$n[df.research$Research=="Target Group"], sep = "")`] (Target) [right=of Beneficial] {Target Group};
+\node[mynode, fill = `r paste("h",df.research$n[df.research$Research=="Existing Knowledge"], sep = "")`] (Existing) [below=of Provable] {Existing Knowledge};
+\node[mynode, fill = `r paste("h",df.research$n[df.research$Research=="Source"], sep = "")`] (Source) [below=of Existing] {Source};
+\node[] (R4) [below=of Research] { };
+\node[] (R5) [below=of R4] { };
+\node[mynode, fill = `r paste("h",df.research$n[df.research$Research=="System of Rules"], sep = "")`] (System) [below left=of R5] {System of Rules};
+\node[mynode, fill = `r paste("h",df.research$n[df.research$Research=="Scientific Method"], sep = "")`] (Scientific) [below right=of R5] {Scientific Method}; 
+%Lines 
+\draw[-latex] (Active.north) to [out=190,in=170] (Relationship.south);
+\draw[-latex] (Relationship.south) to [out=10,in=-10] (Active.north);
+\draw[-latex] (Active.east) -- (Actor.west);
+\draw[-latex] (Actor.north) -- (Person.south);
+\draw[-latex] (Research.north) -- (Active.south);
+\draw[-latex] (Research.west) -- (Question.east);
+\draw[-latex] (Research.south) -- (System.east);
+\draw[-latex] (Research.south) -- (Scientific.west);
+\draw[-latex] (Research.east) -- (Described.west);
+\draw[-latex] (Research.east) -- (New.west);
+\draw[-latex] (Research.east) -- (Context.west);
+\draw[-latex] (Research.east) -- (Transparency.west);
+\draw[-latex] (Described.east) -- (Rules.west);
+\draw[-latex] (New.east) -- (Beneficial.west);
+\draw[-latex] (New.east) -- (Provable.west);
+\draw[-latex] (New.east) -- (Existing.west);
+\draw[-latex] (Beneficial.east) -- (Target.west);
+\draw[-latex] (Existing.south) -- (Source.north);
+\draw[-latex] (Transparency.north) -- (Context.south);
+
+\matrix [draw,above left] at (current bounding box.south east) {
+  \node [lnode, fill = h] {n = 0 }; \\
+  \node [lnode, fill = h1] {n = 1 }; \\
+  \node [lnode, fill = h2] {n = 2 }; \\
+  \node [lnode, fill = h3] {n = 3 }; \\
+  \node [lnode, fill = h4] {n = 4 }; \\
+  \node [lnode, fill = h5] {n = 5 }; \\
+  \node [lnode, fill = h6] {n = 6 }; \\
+  \node [lnode, fill = h7] {n = 7 }; \\
+  \node [lnode, fill = h8] {n = 8 }; \\
+  \node [lnode, fill = h9] {n = 9 }; \\
+  \node [lnode, fill = h10] {n = 10}; \\
+};
+\end{tikzpicture}
