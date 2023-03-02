@@ -1,5 +1,5 @@
 ---
-title: "Web Appendix to: The Needle’s Eye of Research Funding: An Explorative Qualitative Study of Criteria used by Research Funders"
+title: "Web Appendix to: What Criteria do Research Funders use to Assess Ex Ante Research Quality?"
 author: "Anonymous Contributors"
 output: html_document
 header-includes: 
